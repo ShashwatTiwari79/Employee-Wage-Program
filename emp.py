@@ -1,36 +1,49 @@
 import random
 
 def check_attendance():
-    
+    # taking random choice of employees attendance where 0 = absent , 1 = part time , 2 = full time
     attendance = random.choice([0,1,2])
     
     return attendance
+# calculating employees daily working hours and daily wage
 def emp_daily_wage():
-    wage_per_hour = 20
     emp_check = check_attendance()
+    hours_worked = 0
+    daily_wage = 0
     match emp_check:
         case 2 :
-            daily_wage = wage_per_hour*8
+            hours_worked = 8
             
         case 1:
-            daily_wage = wage_per_hour*4
+            hours_worked = 4
            
         case _:
-            daily_wage = 0
-    return daily_wage
+            hours_worked = 0
+    daily_wage = hours_worked*20
+    return daily_wage,hours_worked,emp_check
+# calculating employee monthly wage
 def emp_monthly_wage():
     total_wage = 0
-    a = []
-    for i in range(20):
-        a.append(check_attendance())
-        everyday_wage = emp_daily_wage()
-        total_wage = everyday_wage+total_wage
-    print("The total working days list for 20 days where 2 is for fulltime , 1 for parttime and 0 for absent:-")
-    print(f"{a}")
-    print(f"Total wage for 20 days={total_wage}")
+    num_days = []
+    total_hours = 0
+    total_days_present = 0
+    days_in_month = 1
+    while total_hours<=100 and total_days_present<=20 and days_in_month<=30:
+        daily_wage,daily_hours,status = emp_daily_wage()
+        if status > 0:
+            total_hours += daily_hours
+            num_days.append(status)
+            total_days_present += 1
+        else:
+            num_days.append(status)
+        days_in_month += 1
+        total_wage = total_wage+daily_wage
+    print(f"The record of all the days = {num_days}")
+    print(f"Total number of days the employee was present = {total_days_present}")
+    print(f"Total number of hours the employee did the job = {total_hours}")
+    print(f"The total wage = {total_wage}")
+            
 
-
-    
 if __name__ == "__main__":
     print("Welcome to employee wages computation program")
     emp_monthly_wage()
