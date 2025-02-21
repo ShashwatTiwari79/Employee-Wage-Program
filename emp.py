@@ -13,15 +13,17 @@ def check_attendance():
 def emp_daily_wage():
     wage_per_hour = 20
     emp_check = check_attendance()
-    if emp_check == 2:
-        daily_wage = wage_per_hour*8
-        print(f"The employee is present for the entire day so daily wage is : {daily_wage}")
-    if emp_check == 1:
-        daily_wage = wage_per_hour*4
-        print("The employee is present for the half day")
-    else:
-        daily_wage = 0
-        print(f"The employee was absent for the entire day so daily wage is : {daily_wage}")
+    match emp_check:
+        case 2 :
+            daily_wage = wage_per_hour*8
+            print(f"The employee is present for the entire day so daily wage is : {daily_wage}")
+        case 1:
+            daily_wage = wage_per_hour*4
+            print(f"The employee is present for the half day so daily wage is : {daily_wage}")
+        case _:
+            daily_wage = 0
+            print(f"The employee was absent for the entire day so daily wage is : {daily_wage}")
+    
 if __name__ == "__main__":
     emp_daily_wage()
 
